@@ -148,7 +148,6 @@ function showEasterEgg() {
     img.style.zIndex = '9999';
     img.style.cursor = 'pointer';
     
-    // Убираем картинку по клику
     img.onclick = function() {
         document.body.removeChild(this);
     };
