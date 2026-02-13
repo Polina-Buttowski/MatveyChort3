@@ -126,6 +126,64 @@ button7.onclick = function() {
     // Показываем результат
     output7.textContent = reversed;
 }
+
+//8
+let inputA = document.querySelector('#task-8 [data-js="t8-a"]');
+let inputB = document.querySelector('#task-8 [data-js="t8-b"]');
+let addBtn = document.querySelector('#task-8 [data-js="t8-add"]');
+let mulBtn = document.querySelector('#task-8 [data-js="t8-mul"]');
+let output = document.querySelector('#task-8 [data-js="t8-out"]');
+
+// Функция для показа картинки на весь экран
+function showEasterEgg() {
+    // Создаем элемент для картинки
+    let img = document.createElement('img');
+    img.src = 'img/ahahah.jpg';
+    img.style.position = 'fixed';
+    img.style.top = '0';
+    img.style.left = '0';
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
+    img.style.zIndex = '9999';
+    img.style.cursor = 'pointer';
+    
+    // Убираем картинку по клику
+    img.onclick = function() {
+        document.body.removeChild(this);
+    };
+    
+    // Добавляем на страницу
+    document.body.appendChild(img);
+}
+
+addBtn.onclick = function() {
+    let a = parseFloat(inputA.value);
+    let b = parseFloat(inputB.value);
+    
+    // Проверка на пасхалку (6 и 7)
+    if (a === 6 && b === 7) {
+        showEasterEgg();
+        output.textContent = '😈';
+    } else {
+        let result = a + b;
+        output.textContent = isNaN(result) ? 'NaN' : result;
+    }
+}
+
+mulBtn.onclick = function() {
+    let a = parseFloat(inputA.value);
+    let b = parseFloat(inputB.value);
+    
+    // Проверка на пасхалку (6 и 7)
+    if (a === 6 && b === 7) {
+        showEasterEgg();
+        output.textContent = '😈';
+    } else {
+        let result = a * b;
+        output.textContent = isNaN(result) ? 'NaN' : result;
+    }
+}
   // вот это лучше вам не трогать, внутри тултипов оставил подсказки к выполнению задач
   enableTooltips();
 });
