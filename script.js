@@ -177,12 +177,93 @@ mulBtn.onclick = function() {
     // Проверка на пасхалку (6 и 7)
     if (a === 6 && b === 7) {
         showEasterEgg();
-        output.textContent = '😈';
     } else {
         let result = a * b;
         output.textContent = isNaN(result) ? 'NaN' : result;
     }
 }
+
+//14 
+let button14 = document.querySelector('#task-14 [data-js="t14-next"]');
+let output14 = document.querySelector('#task-14 [data-js="t14-out"]');
+
+let quotes = [
+    "и поесть в груше и после 1 пары съебать в пивоварню",
+    "можно уйти пж",
+    "я сегодня съела вафельки, бульдак, попкорн, яйца, онигири, еще буду есть бутеры и бекончик",
+    "сикс севееен",
+    "кому нужен какао",
+    "полмна",
+    "я хочу кофе. я в. ванпрайм",
+    "я щас включу холоу",
+    "дате орео",
+    "тихо"
+];
+
+button14.onclick = function() {
+    let randomIndex = Math.floor(Math.random() * quotes.length);
+    output14.textContent = quotes[randomIndex];
+}
+
+
+
+//15 - Перетаскивание
+let item = document.querySelector('#task-15 [data-js="t15-item"]');
+let area = document.querySelector('#task-15 [data-js="t15-area"]');
+let coords = document.querySelector('#task-15 [data-js="t15-coords"]');
+
+let shiftX, shiftY; // Смещение от курсора до угла элемента
+
+item.onmousedown = function(event) {
+    event.preventDefault(); // Чтобы не выделялся текст
+    
+    // Вычисляем смещение
+    shiftX = event.clientX - item.getBoundingClientRect().left;
+    shiftY = event.clientY - item.getBoundingClientRect().top;
+    
+    // Ставим обработчики на весь документ
+    document.onmousemove = onMouseMove;
+    document.onmouseup = onMouseUp;
+}
+
+function onMouseMove(event) {
+    // Новая позиция элемента
+    let left = event.clientX - shiftX;
+    let top = event.clientY - shiftY;
+    
+    // Границы области (drag-area)
+    let areaRect = area.getBoundingClientRect();
+    let itemRect = item.getBoundingClientRect();
+    
+    // Ограничиваем, чтобы элемент не выходил за область
+    if (left < areaRect.left) left = areaRect.left;
+    if (top < areaRect.top) top = areaRect.top;
+    if (left + itemRect.width > areaRect.right) left = areaRect.right - itemRect.width;
+    if (top + itemRect.height > areaRect.bottom) top = areaRect.bottom - itemRect.height;
+    
+    // Применяем позицию
+    item.style.left = (left - areaRect.left) + 'px';
+    item.style.top = (top - areaRect.top) + 'px';
+    
+    // Обновляем координаты
+    let x = Math.round(left - areaRect.left);
+    let y = Math.round(top - areaRect.top);
+    coords.textContent = 'x: ' + x + ', y: ' + y;
+}
+
+function onMouseUp() {
+    // Убираем обработчики
+    document.onmousemove = null;
+    document.onmouseup = null;
+}
+
+// Чтобы элемент не реагировал на стандартный drag браузера
+item.ondragstart = function() {
+    return false;
+}
+
+
+
   // вот это лучше вам не трогать, внутри тултипов оставил подсказки к выполнению задач
   enableTooltips();
 });
