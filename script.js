@@ -59,8 +59,7 @@ button3.onclick = function() {
     }
 }
 
-//4
-//4 - Счётчик (короткий вариант)
+//4 
 let minusBtn = document.querySelector('#task-4 [data-js="t4-minus"]');
 let plusBtn = document.querySelector('#task-4 [data-js="t4-plus"]');
 let resetBtn = document.querySelector('#task-4 [data-js="t4-reset"]');
@@ -100,14 +99,11 @@ let panes = document.querySelectorAll('#task-6 .pane');
 
 for (let tab of tabs) {
     tab.onclick = function() {
-        // Убираем активный класс у всех
         for (let t of tabs) t.classList.remove('is-active');
         for (let p of panes) p.classList.remove('is-active');
-        
-        // Добавляем активный класс текущей вкладке
+    
         this.classList.add('is-active');
         
-        // Показываем нужную панель
         let tabName = this.dataset.tab;
         document.querySelector('#task-6 [data-pane="' + tabName + '"]').classList.add('is-active');
     }
@@ -119,11 +115,10 @@ let output7 = document.querySelector('#task-7 [data-js="t7-out"]');
 
 button7.onclick = function() {
     let text = input7.value;
-    
-    // Разворачиваем строку
+
     let reversed = text.split('').reverse().join('');
     
-    // Показываем результат
+
     output7.textContent = reversed;
 }
 
@@ -134,9 +129,7 @@ let addBtn = document.querySelector('#task-8 [data-js="t8-add"]');
 let mulBtn = document.querySelector('#task-8 [data-js="t8-mul"]');
 let output = document.querySelector('#task-8 [data-js="t8-out"]');
 
-// Функция для показа картинки на весь экран
 function showEasterEgg() {
-    // Создаем элемент для картинки
     let img = document.createElement('img');
     img.src = 'img/ahahah.jpg';
     img.style.position = 'fixed';
@@ -152,7 +145,7 @@ function showEasterEgg() {
         document.body.removeChild(this);
     };
     
-    // Добавляем на страницу
+
     document.body.appendChild(img);
 }
 
@@ -163,7 +156,6 @@ addBtn.onclick = function() {
     // Проверка на пасхалку (6 и 7)
     if (a === 6 && b === 7) {
         showEasterEgg();
-        output.textContent = '😈';
     } else {
         let result = a + b;
         output.textContent = isNaN(result) ? 'NaN' : result;
@@ -212,57 +204,63 @@ let item = document.querySelector('#task-15 [data-js="t15-item"]');
 let area = document.querySelector('#task-15 [data-js="t15-area"]');
 let coords = document.querySelector('#task-15 [data-js="t15-coords"]');
 
-let shiftX, shiftY; // Смещение от курсора до угла элемента
+let shiftX, shiftY; 
 
 item.onmousedown = function(event) {
-    event.preventDefault(); // Чтобы не выделялся текст
-    
-    // Вычисляем смещение
+    event.preventDefault(); 
     shiftX = event.clientX - item.getBoundingClientRect().left;
     shiftY = event.clientY - item.getBoundingClientRect().top;
-    
-    // Ставим обработчики на весь документ
+
     document.onmousemove = onMouseMove;
     document.onmouseup = onMouseUp;
 }
 
 function onMouseMove(event) {
-    // Новая позиция элемента
+
     let left = event.clientX - shiftX;
     let top = event.clientY - shiftY;
-    
-    // Границы области (drag-area)
     let areaRect = area.getBoundingClientRect();
     let itemRect = item.getBoundingClientRect();
     
-    // Ограничиваем, чтобы элемент не выходил за область
+
     if (left < areaRect.left) left = areaRect.left;
     if (top < areaRect.top) top = areaRect.top;
     if (left + itemRect.width > areaRect.right) left = areaRect.right - itemRect.width;
     if (top + itemRect.height > areaRect.bottom) top = areaRect.bottom - itemRect.height;
-    
-    // Применяем позицию
+
     item.style.left = (left - areaRect.left) + 'px';
     item.style.top = (top - areaRect.top) + 'px';
     
-    // Обновляем координаты
     let x = Math.round(left - areaRect.left);
     let y = Math.round(top - areaRect.top);
     coords.textContent = 'x: ' + x + ', y: ' + y;
 }
 
 function onMouseUp() {
-    // Убираем обработчики
     document.onmousemove = null;
     document.onmouseup = null;
 }
 
-// Чтобы элемент не реагировал на стандартный drag браузера
 item.ondragstart = function() {
     return false;
 }
 
+//12
+let plusBtn2 = document.querySelector('#task-12 [data-js="t12-plus"]');
+let progressBar = document.querySelector('#task-12 [data-js="t12-bar"]');
+let progressLabel = document.querySelector('#task-12 [data-js="t12-label"]');
 
+let percent = 0;
+
+plusBtn2.onclick = function() {
+    if (percent < 100) {
+        percent = percent + 10;
+        if (percent > 100) percent = 100;
+        
+        progressBar.style.width = percent + '%';
+        progressLabel.textContent = percent + '%';
+    }
+}
 
   // вот это лучше вам не трогать, внутри тултипов оставил подсказки к выполнению задач
   enableTooltips();
