@@ -266,6 +266,32 @@ plusBtn2.onclick = function() {
     }
 }
 
+//10
+let t10Range = document.querySelector("[data-js='t10-range']")
+let t10Out = document.querySelector("[data-js='t10-out']")
+let t10Box = document.querySelector("[data-js='t10-box']")
+
+t10Range.addEventListener('input', function() {
+  let size = this.value
+  t10Box.style.width = size + 'px'
+  t10Box.style.height = size + 'px'
+  t10Out.textContent = size + 'px'
+})
+
+//16
+let t16Animate = document.querySelector('[data-js="t16-animate"]')
+let t16Box = document.querySelector('[data-js="t16-box"]')
+
+t16Animate.onclick = function() {
+  t16Box.classList.add('is-anim')
+  
+  setTimeout(function() {
+    t16Box.classList.remove('is-anim')
+  }, 1000)
+}
+
+
+
   // вот это лучше вам не трогать, внутри тултипов оставил подсказки к выполнению задач
   enableTooltips();
 });

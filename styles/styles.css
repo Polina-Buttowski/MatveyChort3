@@ -1,1 +1,13 @@
 @import url("base.css");
+#task-16 .box.is-anim {
+  animation: bounce 1s ease;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(50px);
+  }
+}
